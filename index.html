@@ -1,0 +1,264 @@
+<! DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <title>Homework #3</title>
+        <meta charset="utf-8">
+
+        <style>
+            body {
+                font-size: 22px;
+                background-color: blue;
+
+            }
+
+            h1 {
+                color: white;
+                font-size: 25pt;
+                margin-left: 30px;
+                margin-top: 3px;
+            }
+
+            table {
+                border: 10px solid red;
+                margin-left: 30px;
+                background: #ADD9E2;
+                margin-top: 2px;
+
+            }
+
+            th {
+                color: red;
+                text-align: center;
+                width: 80px;
+                height: 80px;
+                vertical-align: middle;
+                border: 2px solid black;
+                border-top: 0px;
+                font-size: 16pt;
+            }
+
+            td {
+                vertical-align: middle;
+                text-align: center;
+                width: 80px;
+                height: 80px;
+                border: 2px solid black;
+                font-size: 16pt;
+            }
+
+
+            .picked_cell {
+                background-color: gold
+            }
+
+            #r5c1,
+            #r5c2,
+            #r5c3,
+            #r5c4,
+            #r5c5 {
+                border-bottom: 0px;
+            }
+
+            #th1,
+            #r1c1,
+            #r2c1,
+            #r3c1,
+            #r4c1,
+            #r5c1 {
+                border-left: 0px;
+            }
+
+            #th5,
+            #r1c5,
+            #r2c5,
+            #r3c5,
+            #r4c5,
+            #r5c5 {
+                border-right: 0px;
+            }
+
+            #th1,
+            #th2,
+            #th3,
+            #th4,
+            #th5 {
+
+                font-family: Arvo;
+                font-weight: bold;
+                text-shadow:
+                    -3px -3px 0 green,
+                    3px -3px 0 green,
+                    -3px 3px 0 green,
+                    3px 3px 0 green,
+                    4px 4px 0 #fff,
+                    5px 5px 0 #fff,
+                    6px 6px 0 #fff,
+                    7px 7px 0 #fff;
+                font-size: 50px;
+
+            }
+
+            .button1 {
+                margin-left: 200px;
+                margin-top: 5px;
+                margin-top: 10px;
+                width: 150px;
+                border-radius: 6px;
+                font-weight: bold;
+            }
+
+            .button2 {
+
+                margin-left: 200px;
+                margin-top: 5px;
+                width: 150px;
+                border-radius: 6px;
+                font-weight: bold;
+            }
+        </style>
+
+
+    </head>
+
+    <body>
+
+
+        <h1>Random Bingo Card</h1>
+        <table cellspacing="0" cellpadding="0">
+            <tr>
+                <th id="th1">B</th>
+                <th id="th2">I</th>
+                <th id="th3">N</th>
+                <th id="th4">G</th>
+                <th id="th5">O</th>
+            </tr>
+            <tr>
+                <td id="r1c1"></td>
+                <td id="r1c2"></td>
+                <td id="r1c3"></td>
+                <td id="r1c4"></td>
+                <td id="r1c5"></td>
+            </tr>
+            <tr>
+                <td id="r2c1"></td>
+                <td id="r2c2"></td>
+                <td id="r2c3"></td>
+                <td id="r2c4"></td>
+                <td id="r2c5"></td>
+            </tr>
+            <tr>
+                <td id="r3c1"></td>
+                <td id="r3c2"></td>
+                <td id="r3c3"></td>
+                <td id="r3c4"></td>
+                <td id="r3c5"></td>
+            </tr>
+            <tr>
+                <td id="r4c1"></td>
+                <td id="r4c2"></td>
+                <td id="r4c3"></td>
+                <td id="r4c4"></td>
+                <td id="r4c5"></td>
+            </tr>
+            <tr>
+                <td id="r5c1"></td>
+                <td id="r5c2"></td>
+                <td id="r5c3"></td>
+                <td id="r5c4"></td>
+                <td id="r5c5"></td>
+            </tr>
+        </table>
+        <div id="button_bar">
+            <input type="button" class="button1" value="Populate All" id="pop_button" onclick="populateAll()">
+            </br></br>
+            <input type="button" class="button2" value="Pick A Bingo Ball" id="pickBall" onclick="pickBall()">
+
+
+            <script type="text/javascript">
+                // Populate  between 1 and 75.
+                function populateAll() {
+                    var i, j, temp, str;
+
+                    // Iterating the five 5 columns
+                    for (i = 0; i < 5; i++) {
+                        // Create new array for the column created 
+                        var Carray = [];
+                        var start = 1 + (15 * i);
+                        var end = start + 15;
+                        var k;
+
+                        for (k = start; k < end; k++) {
+                            Carray.push(k);
+                        }
+
+
+                        j = 1 // resetting the loop
+
+                        // Iterate through rows in the  column
+                        for (j = 1; j < 6; j++) {
+
+                            temp1 = Math.floor(Math.random() * Carray.length);
+                            str = "r" + j + "c" + (i + 1);
+                            document.getElementById(str).innerHTML = Carray[temp1];
+                            document.getElementById(str).className = "";
+                            // reset the bg color of all picked elements from the last game
+                            Carray[temp1] = Carray[0];
+                            Carray.shift();
+                        }
+                    }
+                    document.getElementById("r3c3").innerHTML = "FREE";
+                    document.getElementById("r3c3").className = "picked_cell";
+                }
+
+                // Populate an array of 75 integers
+                function createList() {
+                    var Carray = [];
+                    var i;
+
+                    for (i = 0; i < 75; i++) {
+                        Carray[i] = i + 1;
+                    }
+
+                    return Carray;
+                }
+
+                function pickBall() {
+                    var temp1;
+                    var myNum;
+                    var textStr;
+                    var newStr;
+                    // Pick a random number 
+                    temp1 = Math.floor(Math.random() * number_list.length);
+                    myNum = number_list[temp1];
+
+                    // Remove the used number from the number list to avoid repetition
+                    number_list[temp1] = number_list[0];
+                    number_list.shift();
+                    // Check if the random number is in the bingo 
+                    var row, col, str, temp_str;
+                    // Iterate through columns
+                    for (col = 1; col <= 5; col++) {
+                        // Iterate through rows in  each column
+                        for (row = 1; row <= 5; row++) {
+                            str = "r" + row + "c" + col;
+                            temp_str = document.getElementById(str).innerHTML;
+
+                            // Change the color of the cell backround color  if  there is a match
+                            if (temp_str == myNum) {
+                                var element = document.getElementById(str);
+                                element.className = "picked_cell";
+
+                            }
+                        }
+                    }
+
+                }
+
+                var number_list = createList();
+            </script>
+
+
+    </body>
+
+    </html>
